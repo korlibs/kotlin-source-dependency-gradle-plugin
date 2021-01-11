@@ -18,6 +18,9 @@ sourceDependencies {
 }
 ```
 
+For JVM-only projects, this will include the src/commonMain/kotlin and src/jvmMain/kotlin folders
+For multiplatform projects, this will include src/commonMain/kotlin and one per platform, like [described here](https://github.com/korlibs/kotlin-source-dependency-gradle-plugin/blob/e5c445e7a8aa68bebe5173113beef8b7ed472af9/src/main/kotlin/com/soywiz/korlibs/SourceDependencies.kt#L169-L179).
+
 ## URLs
 
 ### GIT repository + folder
