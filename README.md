@@ -1,5 +1,7 @@
 # kotlin-source-dependency-gradle-plugin
 
+> Note, that this is an experimental project. I believe this feature should be available out of the box in Kotlin. So please, vote this issue: <https://youtrack.jetbrains.com/issue/KT-44251>
+
 Plugin to include Kotlin multiplatform source code from other repos without having to deploy artifacts
 
 <https://plugins.gradle.org/plugin/com.soywiz.korlibs.kotlin-source-dependency-gradle-plugin>
