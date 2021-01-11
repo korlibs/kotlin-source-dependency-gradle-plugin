@@ -123,8 +123,25 @@ class SourceDependencies(val project: Project) {
             }
             logger.info("KotlinSourceDependency: $outputDir")
 
+			for (sourceSet in project.gkotlin.sourceSets) {
+				for ((ss, folderName) in listOf(sourceSet.resources to "resources", sourceSet.kotlin to "kotlin")) {
+					val folder = File(project.buildDir, "$buildDirSourceFolder/${bundleName}/src/${sourceSet.name}/$folderName")
+					if (folder.exists()) {
+						logger.info("  ${ss.name}Src: $folder")
+						ss.srcDirs(folder)
+					} else {
+						logger.info("  ${ss.name}Src: $folder (not existing)")
+					}
+				}
+			}
             for (target in project.gkotlin.targets) {
-                logger.info("  target: $target")
+                logger.info("  target: $target [${target.compilations.names}]")
+
+				//println(project.gkotlin.sourceSets.names)
+				//target.compilations.maybeCreate("main")
+				//target.compilations.maybeCreate("test")
+
+
                 target.compilations.all { compilation ->
                     logger.info("    compilation: $compilation")
 
@@ -139,7 +156,8 @@ class SourceDependencies(val project: Project) {
                                 logger.info("        ${ss.name}Src: $folder")
                                 ss.srcDirs(folder)
                             } else {
-								logger.debug("        ${ss.name}Src: $folder (not existing)")
+								//logger.debug("        ${ss.name}Src: $folder (not existing)")
+								logger.info("        ${ss.name}Src: $folder (not existing)")
 							}
                         }
 
