@@ -6,7 +6,7 @@ Plugin to include Kotlin multiplatform source code from other repos without havi
 
 ```
 plugins {
-  id("com.soywiz.korlibs.kotlin-source-dependency-gradle-plugin") version "0.1.0"
+    id("com.soywiz.korlibs.kotlin-source-dependency-gradle-plugin") version "0.1.1"
 }
 ```
 
@@ -14,7 +14,8 @@ Example of usage:
 
 ```
 sourceDependencies {
-	source("https://github.com/korlibs/korlibs-bundle-source-extensions.git::korma-rectangle-experimental-ext::696a97640bb93a66f07ca008cca84b1ae4013e57##d2d9e3eb8f9f8eb5c137e847677eb8b3e9038c30d1f4457d1bd05cafc5c3f251")
+    source("https://github.com/korlibs/korlibs-bundle-source-extensions.git::korma-rectangle-experimental-ext::696a97640bb93a66f07ca008cca84b1ae4013e57##d2d9e3eb8f9f8eb5c137e847677eb8b3e9038c30d1f4457d1bd05cafc5c3f251")
+    source("https://github.com/korlibs/korlibs-bundle-source-extensions.git::suspend-test::ca84b8ffdd88ca64aaf6768cf574cd7aeee997d7##a7053fbb2eddacd7d3e5488fe29d0c0f43b084ca52175dd1afd6d1243d4062c3")
 }
 ```
 
@@ -27,7 +28,7 @@ For multiplatform projects, this will include `src/commonMain/kotlin`, `src/jvmM
 
 ```
 sourceDependencies {
-   source("0️⃣https://github.com/korlibs/korge-bundles.git1️⃣::korge-admob2️⃣::1f15b6228bfe9deeccb995aff950c04923cebee63️⃣##daf1d3ced756e412a8eb389721ccf753d8900a5cd5dd503ffef19e37e510c4e8")
+    source("0️⃣https://github.com/korlibs/korge-bundles.git1️⃣::korge-admob2️⃣::1f15b6228bfe9deeccb995aff950c04923cebee63️⃣##daf1d3ced756e412a8eb389721ccf753d8900a5cd5dd503ffef19e37e510c4e8")
 }
 ```
 
