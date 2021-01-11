@@ -37,6 +37,7 @@ if (forcedVersion != null) {
 dependencies {
 	testImplementation("junit:junit:4.13.1")
 	testImplementation("org.jetbrains.kotlin:kotlin-test")
+	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin")
 	//implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	//implementation("org.jetbrains.kotlin:kotlin-gradle-plugin")
 	compile gradleApi()
