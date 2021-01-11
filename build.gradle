@@ -1,0 +1,117 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+		maven { url = uri("https://plugins.gradle.org/m2/") }
+	}
+	dependencies {
+		classpath("com.gradle.publish:plugin-publish-plugin:0.12.0")
+		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+	}
+}
+
+plugins {
+	id "java-gradle-plugin"
+}
+
+apply plugin: "com.gradle.plugin-publish"
+apply plugin: "kotlin"
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	google()
+	maven { url = uri("https://plugins.gradle.org/m2/") }
+}
+
+String forcedVersion = System.getenv('FORCED_KORGE_PLUGINS_VERSION')
+
+if (forcedVersion != null) {
+	allprojects {
+		this.version = forcedVersion?.replace("refs/tags/v", "")?.replace("v", "") ?: project.version
+	}
+}
+
+dependencies {
+	testImplementation("junit:junit:4.13.1")
+	testImplementation("org.jetbrains.kotlin:kotlin-test")
+	//implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	//implementation("org.jetbrains.kotlin:kotlin-gradle-plugin")
+	compile gradleApi()
+	compile localGroovy()
+}
+
+pluginBundle {
+	website = "https://github.com/korlibs/kotlin-source-dependency-gradle-plugin"
+	vcsUrl = "https://github.com/korlibs/kotlin-source-dependency-gradle-plugin"
+	tags = ["korlibs", "kotlin", "kotlin-mpp"]
+}
+
+gradlePlugin {
+	plugins {
+		kotlinSourceDependencyGradlePlugin {
+			id = 'com.soywiz.korlibs.kotlin-source-dependency-gradle-plugin'
+			displayName = project.property("project.name")
+			description = project.property("project.description")
+			implementationClass = 'com.soywiz.korlibs.KotlinSourceDependencyPlugin'
+		}
+	}
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+}
+
+publishing {
+	repositories {
+		def GITHUB_REPOSITORY = System.getenv("GITHUB_REPOSITORY")
+		def GITHUB_TOKEN = System.getenv("GITHUB_TOKEN")
+		//def GITHUB_REPOSITORY = "korlibs/easy-kotlin-mpp-gradle-plugin"
+		//def GITHUB_TOKEN = "test"
+		if (GITHUB_REPOSITORY != null && GITHUB_TOKEN != null) {
+			maven {
+				name = "GitHubPackages"
+				url = uri("https://maven.pkg.github.com/${GITHUB_REPOSITORY}")
+				credentials(HttpHeaderCredentials) {
+					name = "authorization"
+					value = "Bearer ${GITHUB_TOKEN}"
+				}
+			}
+		}
+	}
+	/*
+	publications {
+		maven(MavenPublication) {
+			groupId = project.group
+			artifactId = project.name
+			version = project.version
+
+			from components.java
+			artifact(sourcesJar)
+			artifact(javadocJar)
+
+			pom {
+				name = project.name
+				description = project.property("project.description")
+				url = project.property("project.scm.url")
+				licenses {
+					license {
+						name = project.property("project.license.name")
+						url = project.property("project.license.url")
+					}
+				}
+				scm {
+					url = project.property("project.scm.url")
+				}
+			}
+		}
+	}
+	 */
+}
