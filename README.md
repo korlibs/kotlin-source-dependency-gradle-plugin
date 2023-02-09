@@ -1,5 +1,7 @@
 # kotlin-source-dependency-gradle-plugin
 
+## DEPRECATED: In favour of [kproject](https://github.com/korlibs/kproject)
+
 > Note, that this is an experimental plugin. I believe this feature should be available out of the box in Kotlin. So please, vote this issue: <https://youtrack.jetbrains.com/issue/KT-44251>
 
 Plugin to include Kotlin multiplatform source code from other repos without having to deploy artifacts
